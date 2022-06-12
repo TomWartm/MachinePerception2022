@@ -21,7 +21,7 @@ OPTIMIZER:
 TRAINING:
   RESUME: null
   PRETRAINED: null
-  PRETRAINED_LIT: 'logs/baseline_fixed/tb_logs/0/checkpoints/epoch=99-step=22999.ckpt' # replace this with your ckpt file
+  PRETRAINED_LIT: '/cluster/home/aheser/project1_skeleton/logs/baseline/tb_logs/0/checkpoints/epoch=0-step=229.ckpt' # replace this with your ckpt file
   MAX_EPOCHS: 101
   SAVE_IMAGES: True
   LOG_SAVE_INTERVAL: 1
