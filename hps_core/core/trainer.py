@@ -21,7 +21,6 @@ from ..utils.image_utils import denormalize_images
 from ..utils.eval_utils import reconstruction_error, compute_error_verts
 from ..utils.geometry import estimate_translation, convert_weak_perspective_to_perspective
 
-
 class HPSTrainer(pl.LightningModule):
 
     def __init__(self, hparams):
