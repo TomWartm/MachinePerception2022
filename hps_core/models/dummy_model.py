@@ -141,7 +141,7 @@ class DummyModel(nn.Module):
             normalize_joints2d=True,
         )
 
-        pdb.set_trace()
+        # pdb.set_trace()
         output = {
             'pred_pose': pred_rotmat,
             'pred_cam': pred_cam,

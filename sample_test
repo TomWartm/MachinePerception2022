@@ -788,3 +788,127 @@ Traceback (most recent call last):
   File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/bdb.py", line 113, in dispatch_line
     if self.quitting: raise BdbQuit
 bdb.BdbQuit
+Sender: LSF System <lsfadmin@eu-g3-033>
+Subject: Job 221433495: <python scripts/main.py --cfg configs/baseline_test.yaml> in cluster <euler> Exited
+
+Job <python scripts/main.py --cfg configs/baseline_test.yaml> was submitted from host <eu-login-31> by user <aheser> in cluster <euler> at Sun Jun 12 19:04:15 2022
+Job was executed on host(s) <6*eu-g3-033>, in queue <gpu.4h>, as user <aheser> in cluster <euler> at Sun Jun 12 19:04:33 2022
+</cluster/home/aheser> was used as the home directory.
+</cluster/home/aheser/project1_skeleton> was used as the working directory.
+Started at Sun Jun 12 19:04:33 2022
+Terminated at Sun Jun 12 19:04:52 2022
+Results reported at Sun Jun 12 19:04:52 2022
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python scripts/main.py --cfg configs/baseline_test.yaml
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   7.70 sec.
+    Max Memory :                                 3293 MB
+    Average Memory :                             268.00 MB
+    Total Requested Memory :                     12288.00 MB
+    Delta Memory :                               8995.00 MB
+    Max Swap :                                   -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   34 sec.
+    Turnaround time :                            37 sec.
+
+The output (if any) follows:
+
+Error processing line 1 of /cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/distutils-precedence.pth:
+
+  Traceback (most recent call last):
+    File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site.py", line 168, in addpackage
+      exec(line)
+    File "<string>", line 1, in <module>
+  ModuleNotFoundError: No module named '_distutils_hack'
+
+Remainder of file ignored
+2022-06-12 19:04:42.469 | INFO     | __main__:<module>:122 - Input arguments: 
+ Namespace(cfg='configs/baseline_test.yaml', fdr=False)
+2022-06-12 19:04:42.523 | INFO     | __main__:main:31 - Hyperparameters: 
+ DATASET:
+  BATCH_SIZE: 64
+  DATASETS_AND_RATIOS: mpii_3dpw_0.5_0.5
+  FOCAL_LENGTH: 5000.0
+  IGNORE_3D: False
+  IMG_RES: 128
+  LOAD_TYPE: Base
+  MESH_COLOR: pinkish
+  NUM_IMAGES: -1
+  NUM_WORKERS: 16
+  PIN_MEMORY: True
+  RENDER_RES: 480
+  SHUFFLE_TRAIN: True
+  TEST_NUM_IMAGES: -1
+  TRAIN_DS: all
+  TRAIN_NUM_IMAGES: -1
+  VAL_DS: 3dpw-val
+EXP_NAME: hmr_baseline
+HMR:
+  BETA_LOSS_WEIGHT: 0.001
+  GT_TRAIN_WEIGHT: 1.0
+  KEYPOINT_LOSS_WEIGHT: 5.0
+  KEYPOINT_NATIVE_LOSS_WEIGHT: 5.0
+  LOSS_WEIGHT: 60.0
+  OPENPOSE_TRAIN_WEIGHT: 0.0
+  POSE_LOSS_WEIGHT: 1.0
+  SHAPE_LOSS_WEIGHT: 0
+  SMPL_PART_LOSS_WEIGHT: 1.0
+LOG_DIR: logs/baseline_test
+METHOD: baseline
+OPTIMIZER:
+  LR: 5e-05
+  TYPE: adam
+  WD: 0.0
+PROJECT_NAME: mp2022
+RUN_TEST: True
+SEED_VALUE: -1
+TESTING:
+  MULTI_SIDEVIEW: False
+  SAVE_FREQ: 1
+  SAVE_IMAGES: False
+  SAVE_MESHES: False
+  SAVE_RESULTS: True
+  SIDEVIEW: True
+  TEST_ON_TRAIN_END: True
+  USE_GT_CAM: False
+TRAINING:
+  CHECK_VAL_EVERY_N_EPOCH: 5
+  LOG_FREQ_TB_IMAGES: 2000
+  LOG_SAVE_INTERVAL: 1
+  MAX_EPOCHS: 101
+  PRETRAINED: None
+  PRETRAINED_LIT: logs/baseline_fixed/tb_logs/0/checkpoints/epoch=99-step=22999.ckpt
+  RELOAD_DATALOADERS_EVERY_EPOCH: True
+  RESUME: None
+  SAVE_IMAGES: True
+  TEST_BEFORE_TRAINING: False
+  USE_AMP: False
+2022-06-12 19:04:44.375 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw-val dataset, num samples 3471
+2022-06-12 19:04:51.360 | WARNING  | __main__:main:51 - Loading pretrained model from logs/baseline_fixed/tb_logs/0/checkpoints/epoch=99-step=22999.ckpt
+WARNING: You are using a SMPL model, with only 10 shape coefficients.
+WARNING: You are using a SMPL model, with only 10 shape coefficients.
+WARNING: You are using a SMPL model, with only 10 shape coefficients.
+WARNING: You are using a SMPL model, with only 10 shape coefficients.
+WARNING: You are using a SMPL model, with only 10 shape coefficients.
+Traceback (most recent call last):
+  File "scripts/main.py", line 125, in <module>
+    main(hparams, fast_dev_run=args.fdr)
+  File "scripts/main.py", line 52, in main
+    ckpt = torch.load(hparams.TRAINING.PRETRAINED_LIT)['state_dict']
+  File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/torch/serialization.py", line 571, in load
+    with _open_file_like(f, 'rb') as opened_file:
+  File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/torch/serialization.py", line 229, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/torch/serialization.py", line 210, in __init__
+    super(_open_file, self).__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: 'logs/baseline_fixed/tb_logs/0/checkpoints/epoch=99-step=22999.ckpt'
