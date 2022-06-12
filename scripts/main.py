@@ -15,7 +15,8 @@ from hps_core.utils.train_utils import load_pretrained_model, set_seed, add_init
 
 def main(hparams, fast_dev_run=False):
     log_dir = hparams.LOG_DIR
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    # device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = 'cpu'
 
     set_seed(hparams.SEED_VALUE)
 
@@ -25,7 +26,7 @@ def main(hparams, fast_dev_run=False):
         colorize=False,
     )
 
-    logger.info(torch.cuda.get_device_properties(device))
+    # logger.info(torch.cuda.get_device_properties(device))
 
     logger.info(f'Hyperparameters: \n {hparams}')
 
@@ -84,7 +85,7 @@ def main(hparams, fast_dev_run=False):
     trainer = pl.Trainer(
         gpus=1,
         logger=experiment_loggers,
-        max_epochs=hparams.TRAINING.MAX_EPOCHS, # total number of epochs
+        max_epochs=1, # hparams.TRAINING.MAX_EPOCHS, # total number of epochs
         callbacks=[ckpt_callback],
         log_every_n_steps=50,
         terminate_on_nan=True,
