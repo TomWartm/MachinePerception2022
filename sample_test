@@ -1,181 +1,13 @@
-Sender: LSF System <lsfadmin@eu-g2-05>
-Subject: Job 218715561: <python scripts/main.py --cfg configs/baseline.yaml> in cluster <euler> Done
-
-Job <python scripts/main.py --cfg configs/baseline.yaml> was submitted from host <eu-login-43> by user <aheser> in cluster <euler> at Mon May 16 20:15:12 2022
-Job was executed on host(s) <6*eu-g2-05>, in queue <gpu.4h>, as user <aheser> in cluster <euler> at Mon May 16 20:18:30 2022
-</cluster/home/aheser> was used as the home directory.
-</cluster/home/aheser/project1_skeleton> was used as the working directory.
-Started at Mon May 16 20:18:30 2022
-Terminated at Mon May 16 20:29:51 2022
-Results reported at Mon May 16 20:29:51 2022
-
-Your job looked like:
-
-------------------------------------------------------------
-# LSBATCH: User input
-python scripts/main.py --cfg configs/baseline.yaml
-------------------------------------------------------------
-
-Successfully completed.
-
-Resource usage summary:
-
-    CPU time :                                   7017.55 sec.
-    Max Memory :                                 12288 MB
-    Average Memory :                             9387.92 MB
-    Total Requested Memory :                     12288.00 MB
-    Delta Memory :                               0.00 MB
-    Max Swap :                                   -
-    Max Processes :                              19
-    Max Threads :                                262
-    Run time :                                   684 sec.
-    Turnaround time :                            879 sec.
-
-The output (if any) follows:
-
-Error processing line 1 of /cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/distutils-precedence.pth:
-
-  Traceback (most recent call last):
-    File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site.py", line 168, in addpackage
-      exec(line)
-    File "<string>", line 1, in <module>
-  ModuleNotFoundError: No module named '_distutils_hack'
-
-Remainder of file ignored
-2022-05-16 20:18:41.747 | INFO     | __main__:<module>:121 - Input arguments: 
- Namespace(cfg='configs/baseline.yaml', fdr=False)
-2022-05-16 20:18:41.808 | INFO     | __main__:main:28 - _CudaDeviceProperties(name='NVIDIA GeForce RTX 2080 Ti', major=7, minor=5, total_memory=11019MB, multi_processor_count=68)
-2022-05-16 20:18:41.808 | INFO     | __main__:main:30 - Hyperparameters: 
- DATASET:
-  BATCH_SIZE: 64
-  DATASETS_AND_RATIOS: mpii_3dpw_0.5_0.5
-  FOCAL_LENGTH: 5000.0
-  IGNORE_3D: False
-  IMG_RES: 128
-  LOAD_TYPE: Base
-  MESH_COLOR: pinkish
-  NUM_IMAGES: -1
-  NUM_WORKERS: 16
-  PIN_MEMORY: True
-  RENDER_RES: 480
-  SHUFFLE_TRAIN: True
-  TEST_NUM_IMAGES: -1
-  TRAIN_DS: all
-  TRAIN_NUM_IMAGES: -1
-  VAL_DS: 3dpw-val
-EXP_NAME: hmr_baseline
-HMR:
-  BETA_LOSS_WEIGHT: 0.001
-  GT_TRAIN_WEIGHT: 1.0
-  KEYPOINT_LOSS_WEIGHT: 5.0
-  KEYPOINT_NATIVE_LOSS_WEIGHT: 5.0
-  LOSS_WEIGHT: 60.0
-  OPENPOSE_TRAIN_WEIGHT: 0.0
-  POSE_LOSS_WEIGHT: 1.0
-  SHAPE_LOSS_WEIGHT: 0
-  SMPL_PART_LOSS_WEIGHT: 1.0
-LOG_DIR: logs/baseline
-METHOD: baseline
-OPTIMIZER:
-  LR: 5e-05
-  TYPE: adam
-  WD: 0.0
-PROJECT_NAME: mp2022
-RUN_TEST: False
-SEED_VALUE: -1
-TESTING:
-  MULTI_SIDEVIEW: False
-  SAVE_FREQ: 1
-  SAVE_IMAGES: False
-  SAVE_MESHES: False
-  SAVE_RESULTS: True
-  SIDEVIEW: True
-  TEST_ON_TRAIN_END: True
-  USE_GT_CAM: False
-TRAINING:
-  CHECK_VAL_EVERY_N_EPOCH: 1
-  LOG_FREQ_TB_IMAGES: 2000
-  LOG_SAVE_INTERVAL: 50
-  MAX_EPOCHS: 1
-  PRETRAINED: None
-  PRETRAINED_LIT: None
-  RELOAD_DATALOADERS_EVERY_EPOCH: True
-  RESUME: None
-  SAVE_IMAGES: True
-  TEST_BEFORE_TRAINING: False
-  USE_AMP: False
-2022-05-16 20:18:42.901 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded mpii dataset, num samples 14667
-2022-05-16 20:18:43.992 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 11368
-2022-05-16 20:18:43.993 | INFO     | hps_core.dataset.mixed_dataset:__init__:39 - Using ['mpii', '3dpw'] dataset
-2022-05-16 20:18:43.993 | INFO     | hps_core.dataset.mixed_dataset:__init__:40 - Ratios of datasets: [0.5, 0.5]
-2022-05-16 20:18:44.363 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw-val dataset, num samples 3471
-GPU available: True, used: True
-TPU available: None, using: 0 TPU cores
-LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-2022-05-16 20:18:52.378 | INFO     | __main__:main:105 - *** Started training ***
-
-  | Name    | Type       | Params | In sizes         | Out sizes
-----------------------------------------------------------------------
-0 | model   | DummyModel | 30.4 K | [1, 3, 128, 128] | ?        
-1 | loss_fn | HMRLoss    | 0      | ?                | ?        
-2 | smpl    | SMPL       | 5.2 K  | ?                | ?        
-----------------------------------------------------------------------
-35.6 K    Trainable params
-0         Non-trainable params
-35.6 K    Total params
-2022-05-16 20:18:52.704 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded mpii dataset, num samples 14667
-2022-05-16 20:18:53.020 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 11368
-2022-05-16 20:18:53.020 | INFO     | hps_core.dataset.mixed_dataset:__init__:39 - Using ['mpii', '3dpw'] dataset
-2022-05-16 20:18:53.021 | INFO     | hps_core.dataset.mixed_dataset:__init__:40 - Ratios of datasets: [0.5, 0.5]
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-Training: 0it [00:00, ?it/s]Training:   0%|          | 0/230 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/230 [00:00<?, ?it/s] Epoch 0:  22%|██▏       | 50/230 [01:26<05:11,  1.73s/it]Epoch 0:  22%|██▏       | 50/230 [01:26<05:11,  1.73s/it, loss=5.64e+11, v_num=0]Epoch 0:  43%|████▎     | 100/230 [02:28<03:12,  1.48s/it, loss=5.64e+11, v_num=0]Epoch 0:  43%|████▎     | 100/230 [02:28<03:12,  1.48s/it, loss=1.85e+12, v_num=0]Epoch 0:  65%|██████▌   | 150/230 [03:31<01:52,  1.41s/it, loss=1.85e+12, v_num=0]Epoch 0:  65%|██████▌   | 150/230 [03:31<01:52,  1.41s/it, loss=1.3e+15, v_num=0] Epoch 0:  87%|████████▋ | 200/230 [04:37<00:41,  1.39s/it, loss=1.3e+15, v_num=0]Epoch 0:  87%|████████▋ | 200/230 [04:37<00:41,  1.39s/it, loss=1.92e+14, v_num=0]Epoch 0: 100%|██████████| 230/230 [05:07<00:00,  1.34s/it, loss=1.92e+14, v_num=0]Epoch 0: 100%|██████████| 230/230 [05:07<00:00,  1.34s/it, loss=1.65e+16, v_num=0]
-Validating: 0it [00:00, ?it/s][A
-Validating:   0%|          | 0/55 [00:00<?, ?it/s][A/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/pytorch_lightning/utilities/distributed.py:50: UserWarning: The {log:dict keyword} was deprecated in 0.9.1 and will be removed in 1.0.0
-Please use self.log(...) inside the lightningModule instead.
-
-# log on a step or aggregate epoch metric to the logger and/or progress bar
-# (inside LightningModule)
-self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True)
-  warnings.warn(*args, **kwargs)
-
-Validating:  91%|█████████ | 50/55 [02:04<00:12,  2.49s/it][A
-Validating: 100%|██████████| 55/55 [02:19<00:00,  2.62s/it][A2022-05-16 20:26:19.631 | INFO     | hps_core.core.trainer:validation_epoch_end:360 - ***** Epoch 0 *****
-2022-05-16 20:26:19.634 | INFO     | hps_core.core.trainer:validation_epoch_end:361 - MPJPE: 625.0372815633569
-2022-05-16 20:26:19.634 | INFO     | hps_core.core.trainer:validation_epoch_end:362 - PA-MPJPE: 405.824539383905
-2022-05-16 20:26:19.634 | INFO     | hps_core.core.trainer:validation_epoch_end:363 - V2V (mm): 548.5154335469961
-Epoch 0, global step 229: val_loss reached 405.82454 (best 405.82454), saving model to "logs/baseline/tb_logs/0/checkpoints/epoch=0-step=229.ckpt" as top 30
-Epoch 0: 100%|██████████| 230/230 [07:27<00:00,  1.94s/it, loss=1.65e+16, v_num=0]
-                                                           [AEpoch 0: 100%|██████████| 230/230 [07:27<00:00,  1.94s/it, loss=1.65e+16, v_num=0]2022-05-16 20:26:20.222 | INFO     | __main__:main:107 - *** Started testing ***
-2022-05-16 20:26:20.491 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 5074
-
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-Testing: 0it [00:00, ?it/s]Testing:   0%|          | 0/80 [00:00<?, ?it/s]Testing:  62%|██████▎   | 50/80 [02:33<01:31,  3.07s/it]Testing: 100%|██████████| 80/80 [03:28<00:00,  2.70s/it]Testing: 100%|██████████| 80/80 [03:29<00:00,  2.62s/it]
---------------------------------------------------------------------------------
-DATALOADER:0 TEST RESULTS
-{}
---------------------------------------------------------------------------------
 Sender: LSF System <lsfadmin@eu-g3-018>
-Subject: Job 218718378: <python scripts/main.py --cfg configs/baseline_test.yaml> in cluster <euler> Exited
+Subject: Job 221440933: <python scripts/main.py --cfg configs/baseline_test.yaml> in cluster <euler> Done
 
-Job <python scripts/main.py --cfg configs/baseline_test.yaml> was submitted from host <eu-login-43> by user <aheser> in cluster <euler> at Mon May 16 20:43:50 2022
-Job was executed on host(s) <6*eu-g3-018>, in queue <gpu.4h>, as user <aheser> in cluster <euler> at Mon May 16 20:44:23 2022
+Job <python scripts/main.py --cfg configs/baseline_test.yaml> was submitted from host <eu-login-20> by user <aheser> in cluster <euler> at Sun Jun 12 22:51:52 2022
+Job was executed on host(s) <6*eu-g3-018>, in queue <gpu.4h>, as user <aheser> in cluster <euler> at Sun Jun 12 22:52:23 2022
 </cluster/home/aheser> was used as the home directory.
 </cluster/home/aheser/project1_skeleton> was used as the working directory.
-Started at Mon May 16 20:44:23 2022
-Terminated at Mon May 16 20:44:44 2022
-Results reported at Mon May 16 20:44:44 2022
+Started at Sun Jun 12 22:52:23 2022
+Terminated at Sun Jun 12 22:56:17 2022
+Results reported at Sun Jun 12 22:56:17 2022
 
 Your job looked like:
 
@@ -184,20 +16,20 @@ Your job looked like:
 python scripts/main.py --cfg configs/baseline_test.yaml
 ------------------------------------------------------------
 
-Exited with exit code 1.
+Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   6.73 sec.
-    Max Memory :                                 3185 MB
-    Average Memory :                             198.00 MB
+    CPU time :                                   1218.72 sec.
+    Max Memory :                                 12044 MB
+    Average Memory :                             8322.00 MB
     Total Requested Memory :                     12288.00 MB
-    Delta Memory :                               9103.00 MB
+    Delta Memory :                               244.00 MB
     Max Swap :                                   -
-    Max Processes :                              3
-    Max Threads :                                4
-    Run time :                                   43 sec.
-    Turnaround time :                            54 sec.
+    Max Processes :                              19
+    Max Threads :                                153
+    Run time :                                   247 sec.
+    Turnaround time :                            265 sec.
 
 The output (if any) follows:
 
@@ -210,10 +42,9 @@ Error processing line 1 of /cluster/home/aheser/miniconda3/envs/hps-env/lib/pyth
   ModuleNotFoundError: No module named '_distutils_hack'
 
 Remainder of file ignored
-2022-05-16 20:44:35.449 | INFO     | __main__:<module>:121 - Input arguments: 
+2022-06-12 22:52:33.565 | INFO     | __main__:<module>:122 - Input arguments: 
  Namespace(cfg='configs/baseline_test.yaml', fdr=False)
-2022-05-16 20:44:35.503 | INFO     | __main__:main:28 - _CudaDeviceProperties(name='NVIDIA GeForce RTX 2080 Ti', major=7, minor=5, total_memory=11019MB, multi_processor_count=68)
-2022-05-16 20:44:35.504 | INFO     | __main__:main:30 - Hyperparameters: 
+2022-06-12 22:52:33.615 | INFO     | __main__:main:31 - Hyperparameters: 
  DATASET:
   BATCH_SIZE: 64
   DATASETS_AND_RATIOS: mpii_3dpw_0.5_0.5
@@ -266,160 +97,19 @@ TRAINING:
   LOG_SAVE_INTERVAL: 1
   MAX_EPOCHS: 101
   PRETRAINED: None
-  PRETRAINED_LIT: logs/baseline_fixed/tb_logs/0/checkpoints/epoch=99-step=22999.ckpt
+  PRETRAINED_LIT: /cluster/home/aheser/project1_skeleton/logs/baseline/tb_logs/0/checkpoints/epoch=0-step=229.ckpt
   RELOAD_DATALOADERS_EVERY_EPOCH: True
   RESUME: None
   SAVE_IMAGES: True
   TEST_BEFORE_TRAINING: False
   USE_AMP: False
-2022-05-16 20:44:37.037 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw-val dataset, num samples 3471
-2022-05-16 20:44:43.788 | WARNING  | __main__:main:50 - Loading pretrained model from logs/baseline_fixed/tb_logs/0/checkpoints/epoch=99-step=22999.ckpt
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-Traceback (most recent call last):
-  File "scripts/main.py", line 124, in <module>
-    main(hparams, fast_dev_run=args.fdr)
-  File "scripts/main.py", line 51, in main
-    ckpt = torch.load(hparams.TRAINING.PRETRAINED_LIT)['state_dict']
-  File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/torch/serialization.py", line 571, in load
-    with _open_file_like(f, 'rb') as opened_file:
-  File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/torch/serialization.py", line 229, in _open_file_like
-    return _open_file(name_or_buffer, mode)
-  File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/torch/serialization.py", line 210, in __init__
-    super(_open_file, self).__init__(open(name, mode))
-FileNotFoundError: [Errno 2] No such file or directory: 'logs/baseline_fixed/tb_logs/0/checkpoints/epoch=99-step=22999.ckpt'
-Sender: LSF System <lsfadmin@eu-g3-018>
-Subject: Job 218718741: <python scripts/main.py --cfg configs/baseline.yaml> in cluster <euler> Done
-
-Job <python scripts/main.py --cfg configs/baseline.yaml> was submitted from host <eu-login-43> by user <aheser> in cluster <euler> at Mon May 16 20:46:21 2022
-Job was executed on host(s) <6*eu-g3-018>, in queue <gpu.4h>, as user <aheser> in cluster <euler> at Mon May 16 20:46:53 2022
-</cluster/home/aheser> was used as the home directory.
-</cluster/home/aheser/project1_skeleton> was used as the working directory.
-Started at Mon May 16 20:46:53 2022
-Terminated at Mon May 16 20:58:22 2022
-Results reported at Mon May 16 20:58:22 2022
-
-Your job looked like:
-
-------------------------------------------------------------
-# LSBATCH: User input
-python scripts/main.py --cfg configs/baseline.yaml
-------------------------------------------------------------
-
-Successfully completed.
-
-Resource usage summary:
-
-    CPU time :                                   3878.50 sec.
-    Max Memory :                                 12288 MB
-    Average Memory :                             8978.25 MB
-    Total Requested Memory :                     12288.00 MB
-    Delta Memory :                               0.00 MB
-    Max Swap :                                   -
-    Max Processes :                              19
-    Max Threads :                                160
-    Run time :                                   712 sec.
-    Turnaround time :                            721 sec.
-
-The output (if any) follows:
-
-Error processing line 1 of /cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/distutils-precedence.pth:
-
-  Traceback (most recent call last):
-    File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site.py", line 168, in addpackage
-      exec(line)
-    File "<string>", line 1, in <module>
-  ModuleNotFoundError: No module named '_distutils_hack'
-
-Remainder of file ignored
-2022-05-16 20:46:58.078 | INFO     | __main__:<module>:121 - Input arguments: 
- Namespace(cfg='configs/baseline.yaml', fdr=False)
-2022-05-16 20:46:58.132 | INFO     | __main__:main:28 - _CudaDeviceProperties(name='NVIDIA GeForce RTX 2080 Ti', major=7, minor=5, total_memory=11019MB, multi_processor_count=68)
-2022-05-16 20:46:58.132 | INFO     | __main__:main:30 - Hyperparameters: 
- DATASET:
-  BATCH_SIZE: 64
-  DATASETS_AND_RATIOS: mpii_3dpw_0.5_0.5
-  FOCAL_LENGTH: 5000.0
-  IGNORE_3D: False
-  IMG_RES: 128
-  LOAD_TYPE: Base
-  MESH_COLOR: pinkish
-  NUM_IMAGES: -1
-  NUM_WORKERS: 16
-  PIN_MEMORY: True
-  RENDER_RES: 480
-  SHUFFLE_TRAIN: True
-  TEST_NUM_IMAGES: -1
-  TRAIN_DS: all
-  TRAIN_NUM_IMAGES: -1
-  VAL_DS: 3dpw-val
-EXP_NAME: hmr_baseline
-HMR:
-  BETA_LOSS_WEIGHT: 0.001
-  GT_TRAIN_WEIGHT: 1.0
-  KEYPOINT_LOSS_WEIGHT: 5.0
-  KEYPOINT_NATIVE_LOSS_WEIGHT: 5.0
-  LOSS_WEIGHT: 60.0
-  OPENPOSE_TRAIN_WEIGHT: 0.0
-  POSE_LOSS_WEIGHT: 1.0
-  SHAPE_LOSS_WEIGHT: 0
-  SMPL_PART_LOSS_WEIGHT: 1.0
-LOG_DIR: logs/baseline
-METHOD: baseline
-OPTIMIZER:
-  LR: 5e-05
-  TYPE: adam
-  WD: 0.0
-PROJECT_NAME: mp2022
-RUN_TEST: False
-SEED_VALUE: -1
-TESTING:
-  MULTI_SIDEVIEW: False
-  SAVE_FREQ: 1
-  SAVE_IMAGES: False
-  SAVE_MESHES: False
-  SAVE_RESULTS: True
-  SIDEVIEW: True
-  TEST_ON_TRAIN_END: True
-  USE_GT_CAM: False
-TRAINING:
-  CHECK_VAL_EVERY_N_EPOCH: 1
-  LOG_FREQ_TB_IMAGES: 2000
-  LOG_SAVE_INTERVAL: 50
-  MAX_EPOCHS: 1
-  PRETRAINED: None
-  PRETRAINED_LIT: None
-  RELOAD_DATALOADERS_EVERY_EPOCH: True
-  RESUME: None
-  SAVE_IMAGES: True
-  TEST_BEFORE_TRAINING: False
-  USE_AMP: False
-2022-05-16 20:46:58.739 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded mpii dataset, num samples 14667
-2022-05-16 20:46:59.069 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 11368
-2022-05-16 20:46:59.069 | INFO     | hps_core.dataset.mixed_dataset:__init__:39 - Using ['mpii', '3dpw'] dataset
-2022-05-16 20:46:59.069 | INFO     | hps_core.dataset.mixed_dataset:__init__:40 - Ratios of datasets: [0.5, 0.5]
-2022-05-16 20:46:59.233 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw-val dataset, num samples 3471
+2022-06-12 22:52:35.251 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw-val dataset, num samples 3471
+2022-06-12 22:52:41.853 | WARNING  | __main__:main:51 - Loading pretrained model from /cluster/home/aheser/project1_skeleton/logs/baseline/tb_logs/0/checkpoints/epoch=0-step=229.ckpt
 GPU available: True, used: True
 TPU available: None, using: 0 TPU cores
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-2022-05-16 20:47:01.232 | INFO     | __main__:main:105 - *** Started training ***
-
-  | Name    | Type       | Params | In sizes         | Out sizes
-----------------------------------------------------------------------
-0 | model   | DummyModel | 30.4 K | [1, 3, 128, 128] | ?        
-1 | loss_fn | HMRLoss    | 0      | ?                | ?        
-2 | smpl    | SMPL       | 5.2 K  | ?                | ?        
-----------------------------------------------------------------------
-35.6 K    Trainable params
-0         Non-trainable params
-35.6 K    Total params
-2022-05-16 20:47:01.423 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded mpii dataset, num samples 14667
-2022-05-16 20:47:01.611 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 11368
-2022-05-16 20:47:01.611 | INFO     | hps_core.dataset.mixed_dataset:__init__:39 - Using ['mpii', '3dpw'] dataset
-2022-05-16 20:47:01.611 | INFO     | hps_core.dataset.mixed_dataset:__init__:40 - Ratios of datasets: [0.5, 0.5]
+2022-06-12 22:52:42.386 | INFO     | __main__:main:103 - *** Started testing ***
+2022-06-12 22:52:42.621 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 5074
 WARNING: You are using a SMPL model, with only 10 shape coefficients.
 WARNING: You are using a SMPL model, with only 10 shape coefficients.
 WARNING: You are using a SMPL model, with only 10 shape coefficients.
@@ -428,201 +118,7 @@ WARNING: You are using a SMPL model, with only 10 shape coefficients.
 WARNING: You are using a SMPL model, with only 10 shape coefficients.
 WARNING: You are using a SMPL model, with only 10 shape coefficients.
 WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-Training: 0it [00:00, ?it/s]Training:   0%|          | 0/230 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/230 [00:00<?, ?it/s] Epoch 0:  22%|██▏       | 50/230 [01:29<05:23,  1.80s/it]Epoch 0:  22%|██▏       | 50/230 [01:29<05:23,  1.80s/it, loss=2.82e+09, v_num=1]Epoch 0:  43%|████▎     | 100/230 [02:38<03:25,  1.58s/it, loss=2.82e+09, v_num=1]Epoch 0:  43%|████▎     | 100/230 [02:38<03:25,  1.58s/it, loss=1.01e+09, v_num=1]Epoch 0:  65%|██████▌   | 150/230 [03:42<01:58,  1.48s/it, loss=1.01e+09, v_num=1]Epoch 0:  65%|██████▌   | 150/230 [03:42<01:58,  1.48s/it, loss=1.82e+09, v_num=1]Epoch 0:  87%|████████▋ | 200/230 [04:48<00:43,  1.44s/it, loss=1.82e+09, v_num=1]Epoch 0:  87%|████████▋ | 200/230 [04:48<00:43,  1.44s/it, loss=4.02e+08, v_num=1]Epoch 0: 100%|██████████| 230/230 [05:08<00:00,  1.34s/it, loss=4.02e+08, v_num=1]Epoch 0: 100%|██████████| 230/230 [05:08<00:00,  1.34s/it, loss=1.63e+08, v_num=1]
-Validating: 0it [00:00, ?it/s][A
-Validating:   0%|          | 0/55 [00:00<?, ?it/s][A/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/pytorch_lightning/utilities/distributed.py:50: UserWarning: The {log:dict keyword} was deprecated in 0.9.1 and will be removed in 1.0.0
-Please use self.log(...) inside the lightningModule instead.
-
-# log on a step or aggregate epoch metric to the logger and/or progress bar
-# (inside LightningModule)
-self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True)
-  warnings.warn(*args, **kwargs)
-
-Validating:  91%|█████████ | 50/55 [02:22<00:14,  2.86s/it][A
-Validating: 100%|██████████| 55/55 [02:31<00:00,  2.53s/it][A2022-05-16 20:54:42.281 | INFO     | hps_core.core.trainer:validation_epoch_end:360 - ***** Epoch 0 *****
-2022-05-16 20:54:42.281 | INFO     | hps_core.core.trainer:validation_epoch_end:361 - MPJPE: 617.8247952574579
-2022-05-16 20:54:42.282 | INFO     | hps_core.core.trainer:validation_epoch_end:362 - PA-MPJPE: 391.5568995814061
-2022-05-16 20:54:42.282 | INFO     | hps_core.core.trainer:validation_epoch_end:363 - V2V (mm): 533.5377598231273
-Epoch 0, global step 229: val_loss reached 391.55690 (best 391.55690), saving model to "logs/baseline/tb_logs/1/checkpoints/epoch=0-step=229.ckpt" as top 30
-Epoch 0: 100%|██████████| 230/230 [07:41<00:00,  2.00s/it, loss=1.63e+08, v_num=1]
-                                                           [AEpoch 0: 100%|██████████| 230/230 [07:41<00:00,  2.00s/it, loss=1.63e+08, v_num=1]2022-05-16 20:54:42.782 | INFO     | __main__:main:107 - *** Started testing ***
-2022-05-16 20:54:42.974 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 5074
-
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-Testing: 0it [00:00, ?it/s]Testing:   0%|          | 0/80 [00:00<?, ?it/s]Testing:  62%|██████▎   | 50/80 [03:11<01:54,  3.83s/it]Testing: 100%|██████████| 80/80 [03:36<00:00,  2.94s/it]Testing: 100%|██████████| 80/80 [03:37<00:00,  2.72s/it]
---------------------------------------------------------------------------------
-DATALOADER:0 TEST RESULTS
-{}
---------------------------------------------------------------------------------
-Sender: LSF System <lsfadmin@eu-g3-038>
-Subject: Job 220675148: <python scripts/main.py --cfg configs/baseline.yaml> in cluster <euler> Done
-
-Job <python scripts/main.py --cfg configs/baseline.yaml> was submitted from host <eu-login-22> by user <aheser> in cluster <euler> at Fri Jun  3 16:24:38 2022
-Job was executed on host(s) <6*eu-g3-038>, in queue <gpu.4h>, as user <aheser> in cluster <euler> at Fri Jun  3 16:24:52 2022
-</cluster/home/aheser> was used as the home directory.
-</cluster/home/aheser/project1_skeleton> was used as the working directory.
-Started at Fri Jun  3 16:24:52 2022
-Terminated at Fri Jun  3 16:37:29 2022
-Results reported at Fri Jun  3 16:37:29 2022
-
-Your job looked like:
-
-------------------------------------------------------------
-# LSBATCH: User input
-python scripts/main.py --cfg configs/baseline.yaml
-------------------------------------------------------------
-
-Successfully completed.
-
-Resource usage summary:
-
-    CPU time :                                   4212.26 sec.
-    Max Memory :                                 12288 MB
-    Average Memory :                             8706.82 MB
-    Total Requested Memory :                     12288.00 MB
-    Delta Memory :                               0.00 MB
-    Max Swap :                                   -
-    Max Processes :                              19
-    Max Threads :                                160
-    Run time :                                   781 sec.
-    Turnaround time :                            771 sec.
-
-The output (if any) follows:
-
-Error processing line 1 of /cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/distutils-precedence.pth:
-
-  Traceback (most recent call last):
-    File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site.py", line 168, in addpackage
-      exec(line)
-    File "<string>", line 1, in <module>
-  ModuleNotFoundError: No module named '_distutils_hack'
-
-Remainder of file ignored
-2022-06-03 16:25:02.920 | INFO     | __main__:<module>:121 - Input arguments: 
- Namespace(cfg='configs/baseline.yaml', fdr=False)
-2022-06-03 16:25:02.981 | INFO     | __main__:main:28 - _CudaDeviceProperties(name='NVIDIA GeForce RTX 2080 Ti', major=7, minor=5, total_memory=11019MB, multi_processor_count=68)
-2022-06-03 16:25:02.982 | INFO     | __main__:main:30 - Hyperparameters: 
- DATASET:
-  BATCH_SIZE: 64
-  DATASETS_AND_RATIOS: mpii_3dpw_0.5_0.5
-  FOCAL_LENGTH: 5000.0
-  IGNORE_3D: False
-  IMG_RES: 128
-  LOAD_TYPE: Base
-  MESH_COLOR: pinkish
-  NUM_IMAGES: -1
-  NUM_WORKERS: 16
-  PIN_MEMORY: True
-  RENDER_RES: 480
-  SHUFFLE_TRAIN: True
-  TEST_NUM_IMAGES: -1
-  TRAIN_DS: all
-  TRAIN_NUM_IMAGES: -1
-  VAL_DS: 3dpw-val
-EXP_NAME: hmr_baseline
-HMR:
-  BETA_LOSS_WEIGHT: 0.001
-  GT_TRAIN_WEIGHT: 1.0
-  KEYPOINT_LOSS_WEIGHT: 5.0
-  KEYPOINT_NATIVE_LOSS_WEIGHT: 5.0
-  LOSS_WEIGHT: 60.0
-  OPENPOSE_TRAIN_WEIGHT: 0.0
-  POSE_LOSS_WEIGHT: 1.0
-  SHAPE_LOSS_WEIGHT: 0
-  SMPL_PART_LOSS_WEIGHT: 1.0
-LOG_DIR: logs/baseline
-METHOD: baseline
-OPTIMIZER:
-  LR: 5e-05
-  TYPE: adam
-  WD: 0.0
-PROJECT_NAME: mp2022
-RUN_TEST: False
-SEED_VALUE: -1
-TESTING:
-  MULTI_SIDEVIEW: False
-  SAVE_FREQ: 1
-  SAVE_IMAGES: False
-  SAVE_MESHES: False
-  SAVE_RESULTS: True
-  SIDEVIEW: True
-  TEST_ON_TRAIN_END: True
-  USE_GT_CAM: False
-TRAINING:
-  CHECK_VAL_EVERY_N_EPOCH: 1
-  LOG_FREQ_TB_IMAGES: 2000
-  LOG_SAVE_INTERVAL: 50
-  MAX_EPOCHS: 1
-  PRETRAINED: None
-  PRETRAINED_LIT: None
-  RELOAD_DATALOADERS_EVERY_EPOCH: True
-  RESUME: None
-  SAVE_IMAGES: True
-  TEST_BEFORE_TRAINING: False
-  USE_AMP: False
-2022-06-03 16:25:04.266 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded mpii dataset, num samples 14667
-2022-06-03 16:25:05.209 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 11368
-2022-06-03 16:25:05.209 | INFO     | hps_core.dataset.mixed_dataset:__init__:39 - Using ['mpii', '3dpw'] dataset
-2022-06-03 16:25:05.209 | INFO     | hps_core.dataset.mixed_dataset:__init__:40 - Ratios of datasets: [0.5, 0.5]
-2022-06-03 16:25:05.438 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw-val dataset, num samples 3471
-GPU available: True, used: True
-TPU available: None, using: 0 TPU cores
-LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-2022-06-03 16:25:12.153 | INFO     | __main__:main:105 - *** Started training ***
-
-  | Name    | Type       | Params | In sizes         | Out sizes
-----------------------------------------------------------------------
-0 | model   | DummyModel | 30.4 K | [1, 3, 128, 128] | ?        
-1 | loss_fn | HMRLoss    | 0      | ?                | ?        
-2 | smpl    | SMPL       | 5.2 K  | ?                | ?        
-----------------------------------------------------------------------
-35.6 K    Trainable params
-0         Non-trainable params
-35.6 K    Total params
-2022-06-03 16:25:12.457 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded mpii dataset, num samples 14667
-2022-06-03 16:25:12.635 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 11368
-2022-06-03 16:25:12.635 | INFO     | hps_core.dataset.mixed_dataset:__init__:39 - Using ['mpii', '3dpw'] dataset
-2022-06-03 16:25:12.635 | INFO     | hps_core.dataset.mixed_dataset:__init__:40 - Ratios of datasets: [0.5, 0.5]
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-Training: 0it [00:00, ?it/s]Training:   0%|          | 0/230 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/230 [00:00<?, ?it/s] Epoch 0:  22%|██▏       | 50/230 [01:38<05:54,  1.97s/it]Epoch 0:  22%|██▏       | 50/230 [01:38<05:54,  1.97s/it, loss=1.54e+13, v_num=2]Epoch 0:  43%|████▎     | 100/230 [02:53<03:45,  1.74s/it, loss=1.54e+13, v_num=2]Epoch 0:  43%|████▎     | 100/230 [02:53<03:45,  1.74s/it, loss=1.56e+12, v_num=2]Epoch 0:  65%|██████▌   | 150/230 [04:00<02:08,  1.60s/it, loss=1.56e+12, v_num=2]Epoch 0:  65%|██████▌   | 150/230 [04:00<02:08,  1.60s/it, loss=1.13e+12, v_num=2]Epoch 0:  87%|████████▋ | 200/230 [05:12<00:46,  1.56s/it, loss=1.13e+12, v_num=2]Epoch 0:  87%|████████▋ | 200/230 [05:12<00:46,  1.56s/it, loss=1.4e+09, v_num=2] Epoch 0: 100%|██████████| 230/230 [05:32<00:00,  1.45s/it, loss=1.4e+09, v_num=2]Epoch 0: 100%|██████████| 230/230 [05:32<00:00,  1.45s/it, loss=1.3e+12, v_num=2]
-Validating: 0it [00:00, ?it/s][A
-Validating:   0%|          | 0/55 [00:00<?, ?it/s][A/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/pytorch_lightning/utilities/distributed.py:50: UserWarning: The {log:dict keyword} was deprecated in 0.9.1 and will be removed in 1.0.0
-Please use self.log(...) inside the lightningModule instead.
-
-# log on a step or aggregate epoch metric to the logger and/or progress bar
-# (inside LightningModule)
-self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True)
-  warnings.warn(*args, **kwargs)
-
-Validating:  91%|█████████ | 50/55 [02:30<00:15,  3.02s/it][A
-Validating: 100%|██████████| 55/55 [02:42<00:00,  2.83s/it][A2022-06-03 16:33:28.540 | INFO     | hps_core.core.trainer:validation_epoch_end:360 - ***** Epoch 0 *****
-2022-06-03 16:33:28.542 | INFO     | hps_core.core.trainer:validation_epoch_end:361 - MPJPE: 605.4022144477947
-2022-06-03 16:33:28.542 | INFO     | hps_core.core.trainer:validation_epoch_end:362 - PA-MPJPE: 392.6029114953656
-2022-06-03 16:33:28.542 | INFO     | hps_core.core.trainer:validation_epoch_end:363 - V2V (mm): 534.4433016630732
-Epoch 0, global step 229: val_loss reached 392.60291 (best 392.60291), saving model to "logs/baseline/tb_logs/2/checkpoints/epoch=0-step=229.ckpt" as top 30
-Epoch 0: 100%|██████████| 230/230 [08:16<00:00,  2.16s/it, loss=1.3e+12, v_num=2]
-                                                           [AEpoch 0: 100%|██████████| 230/230 [08:16<00:00,  2.16s/it, loss=1.3e+12, v_num=2]2022-06-03 16:33:29.105 | INFO     | __main__:main:107 - *** Started testing ***
-2022-06-03 16:33:29.347 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 5074
-
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-WARNING: You are using a SMPL model, with only 10 shape coefficients.
-Testing: 0it [00:00, ?it/s]Testing:   0%|          | 0/80 [00:00<?, ?it/s]Testing:  62%|██████▎   | 50/80 [03:21<02:00,  4.03s/it]Testing: 100%|██████████| 80/80 [03:57<00:00,  3.18s/it]Testing: 100%|██████████| 80/80 [03:58<00:00,  2.98s/it]
+Testing: 0it [00:00, ?it/s]Testing:   0%|          | 0/80 [00:00<?, ?it/s]Testing:  62%|██████▎   | 50/80 [03:04<01:50,  3.69s/it]Testing: 100%|██████████| 80/80 [03:32<00:00,  2.86s/it]Testing: 100%|██████████| 80/80 [03:33<00:00,  2.67s/it]
 --------------------------------------------------------------------------------
 DATALOADER:0 TEST RESULTS
 {}

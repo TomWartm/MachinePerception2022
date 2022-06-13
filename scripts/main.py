@@ -108,4 +108,3 @@ else:
     logger.info('*** Started testing ***')
     trainer.test(model)
 
-
