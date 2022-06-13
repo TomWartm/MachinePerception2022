@@ -25,6 +25,7 @@ class Bottleneck(nn.Module):
         self.stride = stride
 
     def forward(self, x):
+        # pdb.set_trace()
         residual = x
 
         out = self.conv1(x)
@@ -44,7 +45,7 @@ class Bottleneck(nn.Module):
         out += residual
         out = self.relu(out)
 
-        return 
+        return out
 
 class DummyModel(nn.Module):
     def __init__(
@@ -82,26 +83,11 @@ class DummyModel(nn.Module):
         # self.decshape = nn.Linear(1024, 10)
         # self.deccam = nn.Linear(1024, 3)
 
-        self.relu = nn.ReLU(inplace=True)
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-        
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=True)
-        self.bn1 = nn.BatchNorm2d(64)
-        self.conv2 = nn.Conv2d(64, 128, kernel_size=7, stride=2, padding=3, bias=True)
-        self.bn2 = nn.BatchNorm2d(64)
-        
-        self.fnn = nn.Linear(128*8*8, 192)
+
         self.avg_pool = nn.AdaptiveAvgPool2d(8)
         self.decpose = nn.Linear(192, npose)
         self.decshape = nn.Linear(192, 10)
         self.deccam = nn.Linear(192, 3)
-
-
-        # ORJINAL
-        # self.avg_pool = nn.AdaptiveAvgPool2d(8)
-        # self.decpose = nn.Linear(192, npose)
-        # self.decshape = nn.Linear(192, 10)
-        # self.deccam = nn.Linear(192, 3)
 
         # SMPLHead takes estimated pose, shape, cam parameters as input
         # and returns the 3D mesh vertices, 3D/2D joints as output
@@ -110,9 +96,15 @@ class DummyModel(nn.Module):
             img_res=img_res
         )
 
-    def forward(self, images):
-        batch_size = images.shape[0]
-        
+    def forward(self, x):
+        # pdb.set_trace()
+        batch_size = x.shape[0]
+                
+        features = self.avg_pool(x).reshape(batch_size, -1)
+
+        pred_pose = self.decpose(features)
+        pred_shape = self.decshape(features)
+        pred_cam = self.deccam(features)
         # x = self.conv1(x)
         # x = self.bn1(x)
         # x = self.relu(x)
@@ -126,27 +118,7 @@ class DummyModel(nn.Module):
         # xf = self.avgpool(x4)
         # xf = xf.view(xf.size(0), -1)
 
-        features = self.conv1(images)
-        features = self.relu(features)
-        features = self.maxpool(features)
-        features = self.bn1(features)
-        features = self.conv2(features)
-        features = self.relu(features)
-        features = self.maxpool(features)
-        
-        # print('INPUT IMAGE SHAPE = ', images.shape)
-        # print('FEATURES IMAGE SHAPE = ', features.shape)
-        # os._exit(0)
 
-        
-        
-        features = features.reshape(batch_size, -1)
-
-        features = self.fnn(features)
-
-        pred_pose = self.decpose(features)
-        pred_shape = self.decshape(features)
-        pred_cam = self.deccam(features)
 
         # pred_pose = self.init_pose.expand(batch_size, -1)
         # init_shape = self.init_shape.expand(batch_size, -1)

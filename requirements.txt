@@ -1,6 +1,6 @@
 numpy
-torch==1.6.0
-torchvision==0.7.0
+#torch==1.6.0
+#torchvision==0.7.0
 joblib==0.15.1
 opencv-python==4.5.5.64
 trimesh==3.8.12
@@ -15,12 +15,12 @@ yacs==0.1.8
 matplotlib==3.4.2
 scikit-image==0.17.2
 pillow==8.2.0
-pytorch-lightning==1.1.8
+#pytorch-lightning==1.1.8
 numba==0.54.1
 filterpy==1.4.5
 flatten-dict==0.2.0
 fastai==1.0.55
 jpeg4py==0.1.4
 chumpy==0.70
-torchgeometry==0.1.2
+#torchgeometry==0.1.2
 setuptools==47.3.1
