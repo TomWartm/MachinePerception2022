@@ -198,6 +198,8 @@ class BaseDataset(Dataset):
         except Exception as e:
             logger.info(e)
             logger.info(imgname)
+            import os
+            os._exit(0)
 
         orig_shape = np.array(cv_img.shape)[:2]
         load_time = time.perf_counter() - load_start
