@@ -1,13 +1,13 @@
-Sender: LSF System <lsfadmin@eu-g3-046>
-Subject: Job 221585285: <python scripts/main.py --cfg configs/baseline.yaml> in cluster <euler> Exited
+Sender: LSF System <lsfadmin@eu-g3-018>
+Subject: Job 221582893: <python scripts/main.py --cfg configs/baseline.yaml> in cluster <euler> Exited
 
-Job <python scripts/main.py --cfg configs/baseline.yaml> was submitted from host <eu-login-30> by user <aheser> in cluster <euler> at Tue Jun 14 13:53:15 2022
-Job was executed on host(s) <6*eu-g3-046>, in queue <gpu.4h>, as user <aheser> in cluster <euler> at Tue Jun 14 13:53:44 2022
+Job <python scripts/main.py --cfg configs/baseline.yaml> was submitted from host <eu-login-30> by user <aheser> in cluster <euler> at Tue Jun 14 13:00:16 2022
+Job was executed on host(s) <6*eu-g3-018>, in queue <gpu.4h>, as user <aheser> in cluster <euler> at Tue Jun 14 13:00:32 2022
 </cluster/home/aheser> was used as the home directory.
 </cluster/home/aheser/project1_skeleton> was used as the working directory.
-Started at Tue Jun 14 13:53:44 2022
-Terminated at Tue Jun 14 13:54:06 2022
-Results reported at Tue Jun 14 13:54:06 2022
+Started at Tue Jun 14 13:00:32 2022
+Terminated at Tue Jun 14 13:05:18 2022
+Results reported at Tue Jun 14 13:05:18 2022
 
 Your job looked like:
 
@@ -20,16 +20,16 @@ Exited with exit code 1.
 
 Resource usage summary:
 
-    CPU time :                                   8.18 sec.
-    Max Memory :                                 3543 MB
-    Average Memory :                             309.00 MB
+    CPU time :                                   8.96 sec.
+    Max Memory :                                 3528 MB
+    Average Memory :                             1120.25 MB
     Total Requested Memory :                     12288.00 MB
-    Delta Memory :                               8745.00 MB
+    Delta Memory :                               8760.00 MB
     Max Swap :                                   -
-    Max Processes :                              3
-    Max Threads :                                4
-    Run time :                                   45 sec.
-    Turnaround time :                            51 sec.
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   297 sec.
+    Turnaround time :                            302 sec.
 
 The output (if any) follows:
 
@@ -42,9 +42,9 @@ Error processing line 1 of /cluster/home/aheser/miniconda3/envs/hps-env/lib/pyth
   ModuleNotFoundError: No module named '_distutils_hack'
 
 Remainder of file ignored
-2022-06-14 13:53:54.477 | INFO     | __main__:<module>:122 - Input arguments: 
+2022-06-14 13:00:41.263 | INFO     | __main__:<module>:122 - Input arguments: 
  Namespace(cfg='configs/baseline.yaml', fdr=False)
-2022-06-14 13:53:54.530 | INFO     | __main__:main:31 - Hyperparameters: 
+2022-06-14 13:00:41.322 | INFO     | __main__:main:31 - Hyperparameters: 
  DATASET:
   BATCH_SIZE: 64
   DATASETS_AND_RATIOS: mpii_3dpw_0.5_0.5
@@ -103,15 +103,15 @@ TRAINING:
   SAVE_IMAGES: True
   TEST_BEFORE_TRAINING: False
   USE_AMP: False
-2022-06-14 13:53:57.157 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded mpii dataset, num samples 14667
-2022-06-14 13:53:58.112 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 11368
-2022-06-14 13:53:58.113 | INFO     | hps_core.dataset.mixed_dataset:__init__:39 - Using ['mpii', '3dpw'] dataset
-2022-06-14 13:53:58.113 | INFO     | hps_core.dataset.mixed_dataset:__init__:40 - Ratios of datasets: [0.5, 0.5]
-2022-06-14 13:53:58.328 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw-val dataset, num samples 3471
+2022-06-14 13:00:43.939 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded mpii dataset, num samples 14667
+2022-06-14 13:00:44.907 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw dataset, num samples 11368
+2022-06-14 13:00:44.907 | INFO     | hps_core.dataset.mixed_dataset:__init__:39 - Using ['mpii', '3dpw'] dataset
+2022-06-14 13:00:44.907 | INFO     | hps_core.dataset.mixed_dataset:__init__:40 - Ratios of datasets: [0.5, 0.5]
+2022-06-14 13:00:45.133 | INFO     | hps_core.dataset.base_dataset:__init__:132 - Loaded 3dpw-val dataset, num samples 3471
 GPU available: True, used: True
 TPU available: None, using: 0 TPU cores
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-2022-06-14 13:54:05.034 | INFO     | __main__:main:106 - *** Started training ***
+2022-06-14 13:00:52.030 | INFO     | __main__:main:106 - *** Started training ***
 WARNING: You are using a SMPL model, with only 10 shape coefficients.
 WARNING: You are using a SMPL model, with only 10 shape coefficients.
 WARNING: You are using a SMPL model, with only 10 shape coefficients.
@@ -150,12 +150,10 @@ Traceback (most recent call last):
     pred_pose, pred_shape, pred_cam = self.hmr(x)
   File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
     result = self.forward(*input, **kwargs)
-  File "./hps_core/models/hmr.py", line 151, in forward
-    xc = self.fc1(xc)
+  File "./hps_core/models/hmr.py", line 143, in forward
+    xf = self.avgpool(x4)
   File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
     result = self.forward(*input, **kwargs)
-  File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/torch/nn/modules/linear.py", line 91, in forward
-    return F.linear(input, self.weight, self.bias)
-  File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/torch/nn/functional.py", line 1674, in linear
-    ret = torch.addmm(bias, input, weight.t())
-RuntimeError: mat1 dim 1 must match mat2 dim 0
+  File "/cluster/home/aheser/miniconda3/envs/hps-env/lib/python3.7/site-packages/torch/nn/modules/pooling.py", line 599, in forward
+    self.padding, self.ceil_mode, self.count_include_pad, self.divisor_override)
+RuntimeError: Given input size: (2048x4x4). Calculated output size: (2048x-2x-2). Output size is too small

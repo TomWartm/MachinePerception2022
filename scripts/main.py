@@ -15,8 +15,8 @@ from hps_core.utils.train_utils import load_pretrained_model, set_seed, add_init
 
 def main(hparams, fast_dev_run=False):
     log_dir = hparams.LOG_DIR
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    # device = 'cpu'
+    # device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = 'cpu'
 
     set_seed(hparams.SEED_VALUE)
 

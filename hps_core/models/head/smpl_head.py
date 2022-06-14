@@ -8,7 +8,7 @@ from smplx.lbs import vertices2joints
 
 from ...core import config, constants
 from ...utils.geometry import perspective_projection, convert_weak_perspective_to_perspective
-
+from hps_core.utils.train_utils import load_pretrained_model, set_seed, add_init_smpl_params_to_dict
 
 class SMPL(_SMPL):
     """ Extension of the official SMPL implementation to support more joints """

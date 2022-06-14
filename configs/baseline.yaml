@@ -19,7 +19,7 @@ OPTIMIZER:
   LR: 5e-5
   WD: 0.0
 TRAINING:
-  RESUME: null
+  RESUME: null #/cluster/home/aheser/project1_skeleton/logs/baseline/tb_logs/3/checkpoints/epoch=15-step=3679.ckpt
   PRETRAINED: null
   PRETRAINED_LIT: null
   MAX_EPOCHS: 50
