@@ -1,13 +1,13 @@
 import pdb
 import sys
 sys.path.append('.')
+import pdb
 import torch
 import torch.nn as nn
-import torchvision.models.resnet as resnet
-import numpy as np
-import math
-from torchsummary import summary
-from hps_core.utils.geometry import rot6d_to_rotmat, rotmat_to_rot6d
+from .head import SMPLHead
+import torchvision
+from ..utils.geometry import rot6d_to_rotmat, rotmat_to_rot6d
+from .hmr import create_hmr
 from hps_core.utils.train_utils import load_pretrained_model, set_seed, add_init_smpl_params_to_dict
 
 
