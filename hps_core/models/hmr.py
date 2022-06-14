@@ -156,6 +156,5 @@ class HMR(nn.Module):
             pred_cam = self.deccam(xc) + pred_cam
         # print(pred_pose.shape)
         # import pdb; pdb.set_trace()
-        pred_rotmat = rot6d_to_rotmat(pred_pose).view(batch_size, 24, 3, 3)
 
-        return pred_rotmat, pred_shape, pred_cam
+        return pred_pose, pred_shape, pred_cam
