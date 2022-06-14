@@ -10,6 +10,20 @@ from torchsummary import summary
 from hps_core.utils.geometry import rot6d_to_rotmat, rotmat_to_rot6d
 from hps_core.utils.train_utils import load_pretrained_model, set_seed, add_init_smpl_params_to_dict
 
+
+class SomeHead(nn.Module):
+    def __init__(self):
+        super(SomeHead, self).__init__()
+        new_dict = add_init_smpl_params_to_dict({})
+        
+        self.register_buffer('init_pose', new_dict['model.head.init_pose'])
+        self.register_buffer('init_shape', new_dict['model.head.init_shape'])
+        self.register_buffer('init_cam', new_dict['model.head.init_cam'])
+
+    def forward(self, x):
+        return x
+
+
 class Model4(nn.Module):
     """very small model, but use the idea in hmr"""
     def __init__(self):
@@ -31,12 +45,14 @@ class Model4(nn.Module):
         self.bn1 = nn.BatchNorm2d(32)
         self.conv2 = nn.Conv2d(32, 64, kernel_size=7, stride=2, padding=3, bias=True)
         self.bn2 = nn.BatchNorm2d(64)
-        self.conv2 = nn.Conv2d(64, 128, kernel_size=7, stride=2, padding=3, bias=True)
-        self.bn2 = nn.BatchNorm2d(128)
-        self.conv2 = nn.Conv2d(128, 256, kernel_size=7, stride=2, padding=3, bias=True)
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=7, stride=2, padding=3, bias=True)
+        self.bn3 = nn.BatchNorm2d(128)
+        self.conv4 = nn.Conv2d(128, 256, kernel_size=7, stride=2, padding=3, bias=True)
         
-        self.fnn = nn.Linear(128*8*8, 192)
-        self.avg_pool = nn.AdaptiveAvgPool2d(8)
+        self.fnn1 = nn.Linear(256 + npose + 13, 256)
+        self.drop1 = nn.Dropout()
+        self.fnn2 = nn.Linear(256, 192)
+        self.drop2 = nn.Dropout()
         self.decpose = nn.Linear(192, npose)
         self.decshape = nn.Linear(192, 10)
         self.deccam = nn.Linear(192, 3)
@@ -48,10 +64,10 @@ class Model4(nn.Module):
         # and returns the 3D mesh vertices, 3D/2D joints as output
         self.smpl = SMPLHead(
             focal_length=5000.,
-            img_res=img_res
+            img_res=224
         )
     
-    def forward(self, features):    
+    def forward(self, images):    
         batch_size = images.shape[0]
 
         features = self.conv1(images)
@@ -70,23 +86,21 @@ class Model4(nn.Module):
         features = self.bn3(features)
         
         features = self.conv4(features)
-        features = self.relu(features)
-        features = self.maxpool(features)
         
         
         features = features.reshape(batch_size, -1)
 
-        features = self.fnn(features)
-
-        pred_pose = self.init_pose
-        pred_shape = self.init_shape
-        pred_cam = self.init_cam
-        for i in range(n_iter):
-            xc = torch.cat([xf, pred_pose, pred_shape, pred_cam],1)
-            xc = self.fc1(xc)
+        pred_pose = self.init_pose.expand(batch_size, -1)
+        pred_shape = self.init_shape.expand(batch_size, -1)
+        pred_cam = self.init_cam.expand(batch_size, -1)
+        for i in range(3):
+            xc = torch.cat([features, pred_pose, pred_shape, pred_cam],1)
+            # pdb.set_trace()
+            xc = self.fnn1(xc)
             xc = self.drop1(xc)
-            xc = self.fc2(xc)
-            xc = self.drop2(xc)
+            xc = self.relu(xc)
+            xc = self.fnn2(xc)
+
             pred_pose = self.decpose(xc) + pred_pose
             pred_shape = self.decshape(xc) + pred_shape
             pred_cam = self.deccam(xc) + pred_cam
@@ -125,6 +139,6 @@ class Model4(nn.Module):
 
 
 def yaz(input_size):
-    summary(Model4(), input_size)
+    summary(Model4().to('cuda'), input_size)
 yaz((3, 128, 128))
 

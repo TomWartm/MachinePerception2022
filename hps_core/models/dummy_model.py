@@ -237,7 +237,7 @@ class Model3(nn.Module):
 
 class Model4(nn.Module):
     """very small model, but use the idea in hmr"""
-    def __init__(self):
+    def __init__(self, img_res):
         self.inplanes = 64
         super(Model4, self).__init__()
         # pdb.set_trace()
@@ -256,12 +256,14 @@ class Model4(nn.Module):
         self.bn1 = nn.BatchNorm2d(32)
         self.conv2 = nn.Conv2d(32, 64, kernel_size=7, stride=2, padding=3, bias=True)
         self.bn2 = nn.BatchNorm2d(64)
-        self.conv2 = nn.Conv2d(64, 128, kernel_size=7, stride=2, padding=3, bias=True)
-        self.bn2 = nn.BatchNorm2d(128)
-        self.conv2 = nn.Conv2d(128, 256, kernel_size=7, stride=2, padding=3, bias=True)
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=7, stride=2, padding=3, bias=True)
+        self.bn3 = nn.BatchNorm2d(128)
+        self.conv4 = nn.Conv2d(128, 256, kernel_size=7, stride=2, padding=3, bias=True)
         
-        self.fnn = nn.Linear(128*8*8, 192)
-        self.avg_pool = nn.AdaptiveAvgPool2d(8)
+        self.fnn1 = nn.Linear(256 + npose + 13, 256)
+        self.drop1 = nn.Dropout()
+        self.fnn2 = nn.Linear(256, 192)
+        self.drop2 = nn.Dropout()
         self.decpose = nn.Linear(192, npose)
         self.decshape = nn.Linear(192, 10)
         self.deccam = nn.Linear(192, 3)
@@ -276,7 +278,7 @@ class Model4(nn.Module):
             img_res=img_res
         )
     
-    def forward(self, features):    
+    def forward(self, images):    
         batch_size = images.shape[0]
 
         features = self.conv1(images)
@@ -295,23 +297,21 @@ class Model4(nn.Module):
         features = self.bn3(features)
         
         features = self.conv4(features)
-        features = self.relu(features)
-        features = self.maxpool(features)
         
         
         features = features.reshape(batch_size, -1)
 
-        features = self.fnn(features)
-
-        pred_pose = self.init_pose
-        pred_shape = self.init_shape
-        pred_cam = self.init_cam
-        for i in range(n_iter):
-            xc = torch.cat([xf, pred_pose, pred_shape, pred_cam],1)
-            xc = self.fc1(xc)
+        pred_pose = self.init_pose.expand(batch_size, -1)
+        pred_shape = self.init_shape.expand(batch_size, -1)
+        pred_cam = self.init_cam.expand(batch_size, -1)
+        for i in range(3):
+            xc = torch.cat([features, pred_pose, pred_shape, pred_cam],1)
+            # pdb.set_trace()
+            xc = self.fnn1(xc)
             xc = self.drop1(xc)
-            xc = self.fc2(xc)
-            xc = self.drop2(xc)
+            xc = self.relu(xc)
+            xc = self.fnn2(xc)
+
             pred_pose = self.decpose(xc) + pred_pose
             pred_shape = self.decshape(xc) + pred_shape
             pred_cam = self.deccam(xc) + pred_cam
@@ -346,4 +346,6 @@ class Model4(nn.Module):
         #         "pred_pose_6d": torch.Size([batch_size, 144]), -> SMPL pose params in 6D rotation form
 
         return smpl_output
-DummyModel = Model3
+
+
+DummyModel = Model4
