@@ -3,7 +3,7 @@ import torch.nn as nn
 import torchvision.models.resnet as resnet
 import numpy as np
 import math
-from utils.geometry import rot6d_to_rotmat
+from ..utils.geometry import rot6d_to_rotmat, rotmat_to_rot6d
 
 
 class Bottleneck(nn.Module):
