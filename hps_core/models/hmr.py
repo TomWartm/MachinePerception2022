@@ -4,6 +4,8 @@ import torchvision.models.resnet as resnet
 import numpy as np
 import math
 from ..utils.geometry import rot6d_to_rotmat, rotmat_to_rot6d
+from hps_core.utils.train_utils import load_pretrained_model, set_seed, add_init_smpl_params_to_dict
+
 
 
 class Bottleneck(nn.Module):
@@ -158,3 +160,15 @@ class HMR(nn.Module):
         # import pdb; pdb.set_trace()
 
         return pred_pose, pred_shape, pred_cam
+
+def create_hmr(smpl_mean_params='/cluster/home/aheser/project1_skeleton/data/smpl_mean_params.npz', pretrained=True, **kwargs):
+    """ Constructs an HMR model with ResNet50 backbone.
+    Args:
+        pretrained (bool): If True, returns a model pre-trained on ImageNet
+    """
+    model = HMR(Bottleneck, [3, 4, 6, 3],  smpl_mean_params, **kwargs)
+    if pretrained:
+        resnet_imagenet = resnet.resnet50(pretrained=True)
+        model.load_state_dict(resnet_imagenet.state_dict(),strict=False)
+    return model
+
