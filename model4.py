@@ -6,6 +6,7 @@ import torch
 import torch.nn as nn
 from hps_core.models.head import SMPLHead
 import torchvision
+from torchsummary import summary
 from hps_core.utils.geometry import rot6d_to_rotmat, rotmat_to_rot6d
 from hps_core.utils.train_utils import load_pretrained_model, set_seed, add_init_smpl_params_to_dict
 
