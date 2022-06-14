@@ -67,8 +67,7 @@ def main(hparams, fast_dev_run=False):
         monitor='val_loss',
         verbose=True,
         save_top_k=30, # reduce this if you don't have enough storage
-        mode='min',
-        period=hparams.TRAINING.CHECK_VAL_EVERY_N_EPOCH,
+        mode='min'
     )
 
     # Optionally you can use Automatic Mixed Precision to reduce the training time
@@ -92,7 +91,7 @@ def main(hparams, fast_dev_run=False):
         default_root_dir=log_dir,
         progress_bar_refresh_rate=50,
         check_val_every_n_epoch=hparams.TRAINING.CHECK_VAL_EVERY_N_EPOCH,
-        reload_dataloaders_every_epoch=hparams.TRAINING.RELOAD_DATALOADERS_EVERY_EPOCH,
+        # reload_dataloaders_every_epoch=hparams.TRAINING.RELOAD_DATALOADERS_EVERY_EPOCH,
         resume_from_checkpoint=hparams.TRAINING.RESUME,
         num_sanity_val_steps=0,
         fast_dev_run=fast_dev_run,
