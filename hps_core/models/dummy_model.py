@@ -4,7 +4,7 @@ import torch.nn as nn
 from hps_core.models.head import SMPLHead
 import torchvision
 from hps_core.utils.geometry import rot6d_to_rotmat, rotmat_to_rot6d
-from hps_core.models.hmr import create_hmr
+from hps_core.models.hmr import create_hmr, create_hmr_freeze
 from hps_core.utils.train_utils import load_pretrained_model, set_seed, add_init_smpl_params_to_dict
 
 
@@ -473,5 +473,70 @@ class Model5(nn.Module):
         return smpl_output
 
 
+class Model6(nn.Module):
+    """BURADA ENCODER FREEZE EDIP SON LAYERLARI TRAIN EDECEM"""
+    def __init__(
+            self,
+            img_res=224,
+    ):
+        self.inplanes = 64
+        super(Model6, self).__init__()
+        # pdb.set_trace()
 
-DummyModel = Model5
+        self.hmr = create_hmr_freeze()
+
+        self.head = SomeHead()
+
+        self.smpl = SMPLHead(
+            focal_length=5000.,
+            img_res=img_res
+        )
+
+
+    def forward(self, x):
+        # pdb.set_trace()
+        batch_size = x.shape[0]
+                
+        # features = self.avg_pool(x).reshape(batch_size, -1)
+        # features = self.resnet(x)
+
+        pred_pose, pred_shape, pred_cam = self.hmr(x)
+
+        # pred_output = self.smpl(betas=pred_betas, body_pose=pred_rotmat[:,1:], global_orient=pred_rotmat[:,0].unsqueeze(1), pose2rot=False)
+
+        # pred_pose = self.decpose(features)
+        # pred_shape = self.decshape(features)
+        # pred_cam = self.deccam(features)
+
+        pred_rotmat = rot6d_to_rotmat(pred_pose).view(batch_size, 24, 3, 3)
+
+        smpl_output = self.smpl(
+            rotmat=pred_rotmat,
+            shape=pred_shape,
+            cam=pred_cam,
+            normalize_joints2d=True,
+        )
+
+        # # pdb.set_trace()
+        output = {
+            'pred_pose': pred_rotmat,
+            'pred_cam': pred_cam,
+            'pred_shape': pred_shape,
+            'pred_pose_6d': pred_pose,
+        }
+        smpl_output.update(output)
+
+        # smpl output keys and valus:
+        #         "smpl_vertices": torch.Size([batch_size, 6890, 3]), -> 3D mesh vertices
+        #         "smpl_joints3d": torch.Size([batch_size, 49, 3]), -> 3D joints
+        #         "smpl_joints2d": torch.Size([batch_size, 49, 2]), -> 2D joints
+        #         "pred_cam_t": torch.Size([batch_size, 3]), -> camera translation [x,y,z]
+        #         "pred_pose": torch.Size([batch_size, 24, 3, 3]), -> SMPL pose params in rotation matrix form
+        #         "pred_cam": torch.Size([batch_size, 3]), -> weak perspective camera [s,tx,ty]
+        #         "pred_shape": torch.Size([batch_size, 10]), -> SMPL shape (betas) params
+        #         "pred_pose_6d": torch.Size([batch_size, 144]), -> SMPL pose params in 6D rotation form
+
+        return smpl_output
+
+
+DummyModel = Model3
