@@ -193,16 +193,10 @@ class HMRFREEZE_EDILMIS(nn.Module):
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
 
-        self.layer1.weight.requires_grad = False
-        self.layer1.bias.requires_grad = False
-        self.layer2.weight.requires_grad = False
-        self.layer2.bias.requires_grad = False
-        self.layer3.weight.requires_grad = False
-        self.layer3.bias.requires_grad = False
-        self.layer4.weight.requires_grad = False
-        self.layer5.bias.requires_grad = False
+        for layer in [self.layer1, self.layer2, self.layer3, self.layer4]:
+            for param in layer.parameters():
+                param.requires_grad = False
         self.conv1.weight.requires_grad = False
-        self.conv1.bias.requires_grad = False
         
         
         
@@ -210,12 +204,22 @@ class HMRFREEZE_EDILMIS(nn.Module):
         # self.avgpool = nn.AvgPool2d(7, stride=1)
         self.avgpool = nn.AvgPool2d(4, stride=1) # to match input 128x128
         self.fc1 = nn.Linear(512 * block.expansion + npose + 13, 1024) # -> 13 = camera + shape, npose = number of poses in the output
-        self.drop1 = nn.Dropout()
+        self.drop1 = nn.Dropout(p=0.2)
         self.fc2 = nn.Linear(1024, 1024)
-        self.drop2 = nn.Dropout()
+        self.fc3 = nn.Linear(1024, 1024)
+        self.fc4 = nn.Linear(1024, 1024)
+        self.drop2 = nn.Dropout(p=0.2)
+        self.drop3 = nn.Dropout(p=0.2)
+        self.drop4 = nn.Dropout(p=0.2)
         self.decpose = nn.Linear(1024, npose)
         self.decshape = nn.Linear(1024, 10)
         self.deccam = nn.Linear(1024, 3)
+
+        self.fc1.weight.requires_grad = False
+        self.fc1.bias.requires_grad = False
+        self.fc2.weight.requires_grad = False
+        self.fc2.bias.requires_grad = False
+
         nn.init.xavier_uniform_(self.decpose.weight, gain=0.01)
         nn.init.xavier_uniform_(self.decshape.weight, gain=0.01)
         nn.init.xavier_uniform_(self.deccam.weight, gain=0.01)
@@ -260,7 +264,7 @@ class HMRFREEZE_EDILMIS(nn.Module):
         return nn.Sequential(*layers)
 
 
-    def forward(self, x, init_pose=None, init_shape=None, init_cam=None, n_iter=1):
+    def forward(self, x, init_pose=None, init_shape=None, init_cam=None, n_iter=3):
 
         batch_size = x.shape[0]
 
@@ -293,7 +297,13 @@ class HMRFREEZE_EDILMIS(nn.Module):
             xc = self.fc1(xc)
             xc = self.drop1(xc)
             xc = self.fc2(xc)
+            xc = self.relu(xc)
             xc = self.drop2(xc)
+            xc = self.fc3(xc)
+            xc = self.relu(xc)
+            xc = self.drop3(xc)
+            xc = self.fc4(xc)
+            xc = self.drop4(xc)
             pred_pose = self.decpose(xc) + pred_pose
             pred_shape = self.decshape(xc) + pred_shape
             pred_cam = self.deccam(xc) + pred_cam
